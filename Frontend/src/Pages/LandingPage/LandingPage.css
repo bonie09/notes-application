@@ -1,0 +1,44 @@
+.main {
+  min-height: 93vh;
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+}
+.intro-text {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+.lottieConatiner {
+  width: 500px;
+}
+
+.subtitle {
+  text-align: justify;
+}
+
+.buttonContainer {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.landingbutton {
+  width: 200px;
+  height: 55px;
+}
+
+@media (max-width: 768px) {
+  .lottieConatiner {
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landingbutton {
+    width: 125px;
+    height: 55px;
+  }
+}
