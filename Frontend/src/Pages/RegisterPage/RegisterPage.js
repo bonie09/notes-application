@@ -16,7 +16,7 @@ const RegisterPage = () => {
             </div>
           </Col>
           <Col>
-            <div className="registerContainer">
+            <div className="loginContainer">
               <Form>
                 <Form.Group className="mb-3" controlId="name">
                   <Form.Label>Name</Form.Label>
