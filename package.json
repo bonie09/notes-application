@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/bonie09/notes-tracking-app#readme",
   "dependencies": {
+    "@reach/router": "^1.3.4",
     "bcryptjs": "^2.4.3",
     "concurrently": "^7.3.0",
     "dotenv": "^16.0.1",
@@ -26,6 +27,8 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.1",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "react-markdown": "^8.0.7",
+    "react-router-dom": "^6.11.0"
   }
 }

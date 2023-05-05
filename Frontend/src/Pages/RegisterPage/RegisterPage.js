@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainScreen from "../../Components/MainScreen/MainScreen";
 import LottieDisplay from "../../Components/LottieDisplay/LottieDisplay";
 import registerPerson from "../../assets/lottie/registerPerson";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../Actions/userAction";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
-  const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+
+  const { error, userInfo } = userRegister;
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -21,29 +28,17 @@ const RegisterPage = () => {
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        const { data } = await axios.post(
-          "api/users",
-          {
-            name,
-            email,
-            password,
-          },
-          config
-        );
-
-        console.log(data);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error) {
-        setError(error.response.data.message);
-      }
+      dispatch(register(name, email, password));
     }
   };
+
+  useEffect(() => {
+    console.log(userInfo);
+    if (userInfo) {
+      navigate("/mynotes");
+      console.log("UserInfo");
+    }
+  }, [navigate, userInfo]);
   return (
     <Container>
       <MainScreen MainScreen title="SIGN UP">
