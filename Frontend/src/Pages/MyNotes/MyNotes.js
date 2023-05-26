@@ -31,7 +31,7 @@ const MyNotes = ({ search }) => {
   const noteDelete = useSelector((state) => state.noteDelete);
 
   const { success: successDelete } = noteDelete;
-
+  console.log(notes);
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
       dispatch(deleteNote(id));
@@ -65,59 +65,63 @@ const MyNotes = ({ search }) => {
         </Button>
       </Link>
       {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-      {notes
-        ?.reverse()
-        .filter((filteredNote) =>
-          filteredNote.title.toLowerCase().includes(search.toLowerCase())
-        )
-        .map((note) => (
-          <Accordion flush key={note._id}>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                <span
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    flex: 1,
-                    cursor: "pointer",
-                    alignSelf: "center",
-                    fontSize: 18,
-                  }}
-                >
-                  {note.title}
-                </span>
-                <div>
-                  <Button href={`/note/${note._id}`} variant="info">
-                    Edit
-                  </Button>
-                  <Button
-                    variant="danger"
-                    className="mx-2"
-                    onClick={() => deleteHandler(note._id)}
+      {Array.isArray(notes) && notes.length > 0 ? (
+        notes
+          .reverse()
+          .filter((filteredNote) =>
+            filteredNote.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((note) => (
+            <Accordion flush key={note._id}>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>
+                  <span
+                    style={{
+                      color: "black",
+                      textDecoration: "none",
+                      flex: 1,
+                      cursor: "pointer",
+                      alignSelf: "center",
+                      fontSize: 18,
+                    }}
                   >
-                    Delete
-                  </Button>
-                </div>
-              </Accordion.Header>
-              <Accordion.Body>
-                <h4>
-                  <Badge className="rounded-pill bg-success">
-                    category - {note.category}
-                  </Badge>
-                </h4>
-                <blockquote className="blockquote mb-0">
-                  <ReactMarkdown>{note.content}</ReactMarkdown>
-                  <footer className="blockquote-footer">
-                    Created on{" "}
-                    <cite title="Source Title">
-                      {note.createdAt.substring(0, 10)}
-                    </cite>
-                  </footer>
-                </blockquote>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        ))}
+                    {note.title}
+                  </span>
+                  <div>
+                    <Button href={`/note/${note._id}`} variant="info">
+                      Edit
+                    </Button>
+                    <Button
+                      variant="danger"
+                      className="mx-2"
+                      onClick={() => deleteHandler(note._id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body>
+                  <h4>
+                    <Badge className="rounded-pill bg-success">
+                      category - {note.category}
+                    </Badge>
+                  </h4>
+                  <blockquote className="blockquote mb-0">
+                    <ReactMarkdown>{note.content}</ReactMarkdown>
+                    <footer className="blockquote-footer">
+                      Created on{" "}
+                      <cite title="Source Title">
+                        {note.createdAt.substring(0, 10)}
+                      </cite>
+                    </footer>
+                  </blockquote>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          ))
+      ) : (
+        <p>No notes to display</p>
+      )}
     </MainScreen>
   );
 };

@@ -22,7 +22,7 @@ const EditNote = () => {
   useEffect(() => {
     const fetching = async () => {
       const { data } = await axios.get(`/api/notes/${id}`);
-
+      console.log(data);
       setTitle(data.title);
       setContent(data.content);
       setCategory(data.category);
@@ -59,7 +59,7 @@ const EditNote = () => {
               <Form.Control
                 type="text"
                 placeholder="Enter a Title"
-                value={title}
+                value={title || ""}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </Form.Group>
@@ -68,7 +68,7 @@ const EditNote = () => {
               <Form.Control
                 as="textarea"
                 placeholder="Enter a Content"
-                value={content}
+                value={content || ""}
                 onChange={(e) => setContent(e.target.value)}
               />
             </Form.Group>
@@ -85,7 +85,7 @@ const EditNote = () => {
               <Form.Control
                 type="text"
                 placeholder="Enter a Category"
-                value={category}
+                value={category || ""}
                 onChange={(e) => setCategory(e.target.value)}
               />
             </Form.Group>
